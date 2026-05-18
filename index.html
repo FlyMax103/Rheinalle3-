@@ -24,6 +24,11 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 .nav-account:hover{opacity:1}
 .nav-account svg{width:26px;height:26px}
 .nav-user-badge{width:32px;height:32px;background:var(--accent);border-radius:50%;color:white;font-size:.82rem;display:flex;align-items:center;justify-content:center;font-weight:600}
+.lang-switch{display:flex;align-items:center;gap:2px}
+.lang-btn{background:none;border:none;color:rgba(255,255,255,.45);font-size:.73rem;letter-spacing:.1em;cursor:pointer;padding:4px 7px;font-family:var(--sans);transition:color .2s;-webkit-tap-highlight-color:transparent}
+.lang-btn.active,.lang-btn:hover{color:var(--white)}
+.lang-sep{color:rgba(255,255,255,.2);font-size:.65rem;user-select:none}
+.nav-mobile-lang{padding:16px 32px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(255,255,255,.1)}
 
 /* HERO */
 .hero{position:relative;height:100vh;height:100svh;background:url('intro.jpg.webp') center/cover no-repeat;background-color:#0d180d;display:flex;align-items:center;justify-content:center;text-align:center}
@@ -337,13 +342,18 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
     </svg>
   </div>
   <ul class="nav-rooms">
-    <li><span onclick="showRoom(1)" data-room="1">Room 1</span></li>
-    <li><span onclick="showRoom(2)" data-room="2">Room 2</span></li>
-    <li><span onclick="showRoom(3)" data-room="3">Room 3</span></li>
-    <li><span onclick="showRoom(4)" data-room="4">Room 4</span></li>
-    <li><span onclick="showRoom(5)" data-room="5">Room 5</span></li>
+    <li><span onclick="showRoom(1)" data-room="1" data-i18n="nav.r1">Room 1</span></li>
+    <li><span onclick="showRoom(2)" data-room="2" data-i18n="nav.r2">Room 2</span></li>
+    <li><span onclick="showRoom(3)" data-room="3" data-i18n="nav.r3">Room 3</span></li>
+    <li><span onclick="showRoom(4)" data-room="4" data-i18n="nav.r4">Room 4</span></li>
+    <li><span onclick="showRoom(5)" data-room="5" data-i18n="nav.r5">Room 5</span></li>
   </ul>
   <div class="nav-right">
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+    </div>
     <button class="hamburger" id="hamburger" onclick="toggleHamburger()" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -358,12 +368,17 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 <!-- MOBILE MENU OVERLAY -->
 <div id="mobile-menu" class="nav-mobile-menu" role="navigation">
   <ul>
-    <li><span onclick="showRoom(1);closeHamburger()">Room 1</span></li>
-    <li><span onclick="showRoom(2);closeHamburger()">Room 2</span></li>
-    <li><span onclick="showRoom(3);closeHamburger()">Room 3</span></li>
-    <li><span onclick="showRoom(4);closeHamburger()">Room 4</span></li>
-    <li><span onclick="showRoom(5);closeHamburger()">Room 5</span></li>
+    <li><span onclick="showRoom(1);closeHamburger()" data-i18n="nav.r1">Room 1</span></li>
+    <li><span onclick="showRoom(2);closeHamburger()" data-i18n="nav.r2">Room 2</span></li>
+    <li><span onclick="showRoom(3);closeHamburger()" data-i18n="nav.r3">Room 3</span></li>
+    <li><span onclick="showRoom(4);closeHamburger()" data-i18n="nav.r4">Room 4</span></li>
+    <li><span onclick="showRoom(5);closeHamburger()" data-i18n="nav.r5">Room 5</span></li>
   </ul>
+  <div class="nav-mobile-lang">
+    <button class="lang-btn active" id="mob-btn-en" onclick="setLang('en');closeHamburger()">EN</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn" id="mob-btn-de" onclick="setLang('de');closeHamburger()">DE</button>
+  </div>
   <div class="nav-mobile-account" id="nav-mobile-account-area">
     <button onclick="handleAccountClick();closeHamburger()">My Account</button>
   </div>
@@ -385,67 +400,67 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
           <text x="100" y="172" text-anchor="middle" fill="white" font-size="7" font-family="Georgia,serif" letter-spacing="4" opacity="0.6">OESTRICH-WINKEL</text>
         </svg>
       </div>
-      <h1>Student Living<br/>in the Rheingau</h1>
-      <p>Five rooms · Rheinallee 3, 65375 Oestrich-Winkel</p>
-      <span class="btn" onclick="showRoom(1)">Explore Rooms</span>
+      <h1 data-i18n="hero.h1">Student Living<br/>in the Rheingau</h1>
+      <p data-i18n="hero.sub">Five rooms · Rheinallee 3, 65375 Oestrich-Winkel</p>
+      <span class="btn" onclick="showRoom(1)" data-i18n="hero.btn">Explore Rooms</span>
     </div>
   </section>
   <section class="rooms-section">
-    <h2>Our Rooms</h2>
+    <h2 data-i18n="home.rooms_h">Our Rooms</h2>
     <div class="rooms-grid">
-      <div class="room-card" onclick="showRoom(1)"><div class="room-thumb room-thumb-1"></div><div class="room-info"><span class="room-num">01</span><h3>Room 1</h3><p>Single · 18 m²</p></div></div>
-      <div class="room-card" onclick="showRoom(2)"><div class="room-thumb room-thumb-2"></div><div class="room-info"><span class="room-num">02</span><h3>Room 2</h3><p>Single · 20 m²</p></div></div>
-      <div class="room-card" onclick="showRoom(3)"><div class="room-thumb room-thumb-3"></div><div class="room-info"><span class="room-num">03</span><h3>Room 3</h3><p>Double · 24 m²</p></div></div>
-      <div class="room-card" onclick="showRoom(4)"><div class="room-thumb room-thumb-4"></div><div class="room-info"><span class="room-num">04</span><h3>Room 4</h3><p>Single · 19 m²</p></div></div>
-      <div class="room-card" onclick="showRoom(5)"><div class="room-thumb room-thumb-5"></div><div class="room-info"><span class="room-num">05</span><h3>Room 5</h3><p>Double · 26 m²</p></div></div>
+      <div class="room-card" onclick="showRoom(1)"><div class="room-thumb room-thumb-1"></div><div class="room-info"><span class="room-num">01</span><h3 data-i18n="nav.r1">Room 1</h3><p><span data-i18n="room.single">Single</span> · 18 m²</p></div></div>
+      <div class="room-card" onclick="showRoom(2)"><div class="room-thumb room-thumb-2"></div><div class="room-info"><span class="room-num">02</span><h3 data-i18n="nav.r2">Room 2</h3><p><span data-i18n="room.single">Single</span> · 20 m²</p></div></div>
+      <div class="room-card" onclick="showRoom(3)"><div class="room-thumb room-thumb-3"></div><div class="room-info"><span class="room-num">03</span><h3 data-i18n="nav.r3">Room 3</h3><p><span data-i18n="room.double">Double</span> · 24 m²</p></div></div>
+      <div class="room-card" onclick="showRoom(4)"><div class="room-thumb room-thumb-4"></div><div class="room-info"><span class="room-num">04</span><h3 data-i18n="nav.r4">Room 4</h3><p><span data-i18n="room.single">Single</span> · 19 m²</p></div></div>
+      <div class="room-card" onclick="showRoom(5)"><div class="room-thumb room-thumb-5"></div><div class="room-info"><span class="room-num">05</span><h3 data-i18n="nav.r5">Room 5</h3><p><span data-i18n="room.double">Double</span> · 26 m²</p></div></div>
     </div>
   </section>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
 </div>
 
-<!-- ═══ ROOM PAGES (prices updated dynamically via JS) ══════════ -->
+<!-- ═══ ROOM PAGES ══════════════════════════════════════ -->
 
 <!-- ROOM 1 -->
 <div id="page-room1" class="page">
-  <div class="room-hero room-hero-1"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1>Room 1</h1></div></div>
+  <div class="room-hero room-hero-1"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1 data-i18n="nav.r1">Room 1</h1></div></div>
   <div class="room-detail">
     <div>
-      <h2>About this room</h2>
-      <p>A bright single room on the first floor with a view of the inner courtyard. Newly furnished with a Scandinavian-inspired aesthetic, plenty of natural light and smart storage solutions.</p>
-      <p>Part of a shared flat with four other students. Fully equipped kitchen, two bathrooms and a comfortable living area are shared.</p>
+      <h2 data-i18n="room.about">About this room</h2>
+      <p data-i18n="r1.p1">A bright single room on the first floor with a view of the inner courtyard. Newly furnished with a Scandinavian-inspired aesthetic, plenty of natural light and smart storage solutions.</p>
+      <p data-i18n="r1.p2">Part of a shared flat with four other students. Fully equipped kitchen, two bathrooms and a comfortable living area are shared.</p>
       <div class="room-specs" style="margin-top:40px">
-        <div class="spec-row"><span class="label">Size</span><span class="value">18 m²</span></div>
-        <div class="spec-row"><span class="label">Type</span><span class="value">Single room</span></div>
-        <div class="spec-row"><span class="label">Floor</span><span class="value">1st floor</span></div>
-        <div class="spec-row"><span class="label">Furnishing</span><span class="value">Fully furnished</span></div>
-        <div class="spec-row"><span class="label">Internet</span><span class="value">Gigabit included</span></div>
-        <div class="spec-row"><span class="label">Available from</span><span class="value">01 September 2026</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.size">Size</span><span class="value">18 m²</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.type">Type</span><span class="value" data-i18n="val.single_room">Single room</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.floor">Floor</span><span class="value" data-i18n="val.floor1">1st floor</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.furnishing">Furnishing</span><span class="value" data-i18n="val.furnished">Fully furnished</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.internet">Internet</span><span class="value" data-i18n="val.gigabit">Gigabit included</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.available">Available from</span><span class="value" data-i18n="val.sep26">01 September 2026</span></div>
       </div>
     </div>
     <div>
       <div class="room-price">
-        <div class="price-label">Net monthly rent</div>
+        <div class="price-label" data-i18n="room.price_label">Net monthly rent</div>
         <div class="price" id="r1-net">€ 620</div>
         <div class="price-vat" id="r1-vatline">+ 19% VAT = € 737.80 / month</div>
-        <div class="price-note">incl. utilities & internet</div>
-        <button class="btn-dark" onclick="scrollToApply(1)">Apply Now</button>
+        <div class="price-note" data-i18n="room.price_note">incl. utilities &amp; internet</div>
+        <button class="btn-dark" onclick="scrollToApply(1)" data-i18n="room.apply">Apply Now</button>
       </div>
     </div>
   </div>
   <section class="apply-section" id="apply-1">
     <div class="apply-inner">
-      <h2>Apply for Room 1</h2>
-      <p class="apply-sub">Single room · 18 m² · Fill in your details and we will get back to you as soon as possible.</p>
+      <h2 data-i18n="apply.h2.1">Apply for Room 1</h2>
+      <p class="apply-sub" data-i18n="apply.sub.1">Single room · 18 m² · Fill in your details and we will get back to you as soon as possible.</p>
       <div id="app-err-1" class="error-msg"></div>
       <div class="apply-grid">
-        <div class="form-group"><label>Full Name</label><input id="app-name-1" type="text" placeholder="Anna Müller"/></div>
-        <div class="form-group"><label>Email Address</label><input id="app-email-1" type="email" placeholder="anna@example.com"/></div>
-        <div class="form-group"><label>Desired Move-in Date</label><input id="app-movein-1" type="date"/></div>
-        <div class="form-group"><label>Expected Move-out Date</label><input id="app-moveout-1" type="date"/></div>
-        <div class="form-group full"><label>Message / Questions</label><textarea id="app-msg-1" placeholder="Any questions, special requests or additional information…"></textarea></div>
+        <div class="form-group"><label data-i18n="apply.name">Full Name</label><input id="app-name-1" type="text" placeholder="Anna Müller" data-i18n-placeholder="apply.ph.name"/></div>
+        <div class="form-group"><label data-i18n="apply.email">Email Address</label><input id="app-email-1" type="email" placeholder="anna@example.com"/></div>
+        <div class="form-group"><label data-i18n="apply.movein">Desired Move-in Date</label><input id="app-movein-1" type="date"/></div>
+        <div class="form-group"><label data-i18n="apply.moveout">Expected Move-out Date</label><input id="app-moveout-1" type="date"/></div>
+        <div class="form-group full"><label data-i18n="apply.msg">Message / Questions</label><textarea id="app-msg-1" placeholder="Any questions, special requests or additional information…" data-i18n-placeholder="apply.ph.msg"></textarea></div>
       </div>
-      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(1)">Send Application</button>
-      <div id="apply-success-1" class="apply-success">✓ Your application has been sent. We will be in touch shortly.</div>
+      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(1)" data-i18n="apply.submit">Send Application</button>
+      <div id="apply-success-1" class="apply-success" data-i18n="apply.success">✓ Your application has been sent. We will be in touch shortly.</div>
     </div>
   </section>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
@@ -453,45 +468,45 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 
 <!-- ROOM 2 -->
 <div id="page-room2" class="page">
-  <div class="room-hero room-hero-2"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1>Room 2</h1></div></div>
+  <div class="room-hero room-hero-2"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1 data-i18n="nav.r2">Room 2</h1></div></div>
   <div class="room-detail">
     <div>
-      <h2>About this room</h2>
-      <p>A spacious single room with a south-facing window and warm afternoon light. Features a large built-in wardrobe, a dedicated study zone and a comfortable sleeping area.</p>
-      <p>Situated on the second floor with a quiet position within the flat. Shared amenities include a modern kitchen and two bathrooms.</p>
+      <h2 data-i18n="room.about">About this room</h2>
+      <p data-i18n="r2.p1">A spacious single room with a south-facing window and warm afternoon light. Features a large built-in wardrobe, a dedicated study zone and a comfortable sleeping area.</p>
+      <p data-i18n="r2.p2">Situated on the second floor with a quiet position within the flat. Shared amenities include a modern kitchen and two bathrooms.</p>
       <div class="room-specs" style="margin-top:40px">
-        <div class="spec-row"><span class="label">Size</span><span class="value">20 m²</span></div>
-        <div class="spec-row"><span class="label">Type</span><span class="value">Single room</span></div>
-        <div class="spec-row"><span class="label">Floor</span><span class="value">2nd floor</span></div>
-        <div class="spec-row"><span class="label">Furnishing</span><span class="value">Fully furnished</span></div>
-        <div class="spec-row"><span class="label">Internet</span><span class="value">Gigabit included</span></div>
-        <div class="spec-row"><span class="label">Available from</span><span class="value">01 September 2026</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.size">Size</span><span class="value">20 m²</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.type">Type</span><span class="value" data-i18n="val.single_room">Single room</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.floor">Floor</span><span class="value" data-i18n="val.floor2">2nd floor</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.furnishing">Furnishing</span><span class="value" data-i18n="val.furnished">Fully furnished</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.internet">Internet</span><span class="value" data-i18n="val.gigabit">Gigabit included</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.available">Available from</span><span class="value" data-i18n="val.sep26">01 September 2026</span></div>
       </div>
     </div>
     <div>
       <div class="room-price">
-        <div class="price-label">Net monthly rent</div>
+        <div class="price-label" data-i18n="room.price_label">Net monthly rent</div>
         <div class="price" id="r2-net">€ 650</div>
         <div class="price-vat" id="r2-vatline">+ 19% VAT = € 773.50 / month</div>
-        <div class="price-note">incl. utilities & internet</div>
-        <button class="btn-dark" onclick="scrollToApply(2)">Apply Now</button>
+        <div class="price-note" data-i18n="room.price_note">incl. utilities &amp; internet</div>
+        <button class="btn-dark" onclick="scrollToApply(2)" data-i18n="room.apply">Apply Now</button>
       </div>
     </div>
   </div>
   <section class="apply-section" id="apply-2">
     <div class="apply-inner">
-      <h2>Apply for Room 2</h2>
-      <p class="apply-sub">Single room · 20 m² · Fill in your details and we will get back to you as soon as possible.</p>
+      <h2 data-i18n="apply.h2.2">Apply for Room 2</h2>
+      <p class="apply-sub" data-i18n="apply.sub.2">Single room · 20 m² · Fill in your details and we will get back to you as soon as possible.</p>
       <div id="app-err-2" class="error-msg"></div>
       <div class="apply-grid">
-        <div class="form-group"><label>Full Name</label><input id="app-name-2" type="text" placeholder="Anna Müller"/></div>
-        <div class="form-group"><label>Email Address</label><input id="app-email-2" type="email" placeholder="anna@example.com"/></div>
-        <div class="form-group"><label>Desired Move-in Date</label><input id="app-movein-2" type="date"/></div>
-        <div class="form-group"><label>Expected Move-out Date</label><input id="app-moveout-2" type="date"/></div>
-        <div class="form-group full"><label>Message / Questions</label><textarea id="app-msg-2" placeholder="Any questions, special requests or additional information…"></textarea></div>
+        <div class="form-group"><label data-i18n="apply.name">Full Name</label><input id="app-name-2" type="text" placeholder="Anna Müller" data-i18n-placeholder="apply.ph.name"/></div>
+        <div class="form-group"><label data-i18n="apply.email">Email Address</label><input id="app-email-2" type="email" placeholder="anna@example.com"/></div>
+        <div class="form-group"><label data-i18n="apply.movein">Desired Move-in Date</label><input id="app-movein-2" type="date"/></div>
+        <div class="form-group"><label data-i18n="apply.moveout">Expected Move-out Date</label><input id="app-moveout-2" type="date"/></div>
+        <div class="form-group full"><label data-i18n="apply.msg">Message / Questions</label><textarea id="app-msg-2" placeholder="Any questions, special requests or additional information…" data-i18n-placeholder="apply.ph.msg"></textarea></div>
       </div>
-      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(2)">Send Application</button>
-      <div id="apply-success-2" class="apply-success">✓ Your application has been sent. We will be in touch shortly.</div>
+      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(2)" data-i18n="apply.submit">Send Application</button>
+      <div id="apply-success-2" class="apply-success" data-i18n="apply.success">✓ Your application has been sent. We will be in touch shortly.</div>
     </div>
   </section>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
@@ -499,45 +514,45 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 
 <!-- ROOM 3 -->
 <div id="page-room3" class="page">
-  <div class="room-hero room-hero-3"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1>Room 3</h1></div></div>
+  <div class="room-hero room-hero-3"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1 data-i18n="nav.r3">Room 3</h1></div></div>
   <div class="room-detail">
     <div>
-      <h2>About this room</h2>
-      <p>The largest room in the flat — a double room ideal for a student who values extra space. Features a seating area separate from the sleeping and study zones, plus a walk-in wardrobe.</p>
-      <p>Corner position on the third floor with a view of both the street and the inner courtyard.</p>
+      <h2 data-i18n="room.about">About this room</h2>
+      <p data-i18n="r3.p1">The largest room in the flat — a double room ideal for a student who values extra space. Features a seating area separate from the sleeping and study zones, plus a walk-in wardrobe.</p>
+      <p data-i18n="r3.p2">Corner position on the third floor with a view of both the street and the inner courtyard.</p>
       <div class="room-specs" style="margin-top:40px">
-        <div class="spec-row"><span class="label">Size</span><span class="value">24 m²</span></div>
-        <div class="spec-row"><span class="label">Type</span><span class="value">Double room</span></div>
-        <div class="spec-row"><span class="label">Floor</span><span class="value">3rd floor</span></div>
-        <div class="spec-row"><span class="label">Furnishing</span><span class="value">Fully furnished</span></div>
-        <div class="spec-row"><span class="label">Internet</span><span class="value">Gigabit included</span></div>
-        <div class="spec-row"><span class="label">Available from</span><span class="value">01 October 2026</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.size">Size</span><span class="value">24 m²</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.type">Type</span><span class="value" data-i18n="val.double_room">Double room</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.floor">Floor</span><span class="value" data-i18n="val.floor3">3rd floor</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.furnishing">Furnishing</span><span class="value" data-i18n="val.furnished">Fully furnished</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.internet">Internet</span><span class="value" data-i18n="val.gigabit">Gigabit included</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.available">Available from</span><span class="value" data-i18n="val.oct26">01 October 2026</span></div>
       </div>
     </div>
     <div>
       <div class="room-price">
-        <div class="price-label">Net monthly rent</div>
+        <div class="price-label" data-i18n="room.price_label">Net monthly rent</div>
         <div class="price" id="r3-net">€ 720</div>
         <div class="price-vat" id="r3-vatline">+ 19% VAT = € 856.80 / month</div>
-        <div class="price-note">incl. utilities & internet</div>
-        <button class="btn-dark" onclick="scrollToApply(3)">Apply Now</button>
+        <div class="price-note" data-i18n="room.price_note">incl. utilities &amp; internet</div>
+        <button class="btn-dark" onclick="scrollToApply(3)" data-i18n="room.apply">Apply Now</button>
       </div>
     </div>
   </div>
   <section class="apply-section" id="apply-3">
     <div class="apply-inner">
-      <h2>Apply for Room 3</h2>
-      <p class="apply-sub">Double room · 24 m² · Fill in your details and we will get back to you as soon as possible.</p>
+      <h2 data-i18n="apply.h2.3">Apply for Room 3</h2>
+      <p class="apply-sub" data-i18n="apply.sub.3">Double room · 24 m² · Fill in your details and we will get back to you as soon as possible.</p>
       <div id="app-err-3" class="error-msg"></div>
       <div class="apply-grid">
-        <div class="form-group"><label>Full Name</label><input id="app-name-3" type="text" placeholder="Anna Müller"/></div>
-        <div class="form-group"><label>Email Address</label><input id="app-email-3" type="email" placeholder="anna@example.com"/></div>
-        <div class="form-group"><label>Desired Move-in Date</label><input id="app-movein-3" type="date"/></div>
-        <div class="form-group"><label>Expected Move-out Date</label><input id="app-moveout-3" type="date"/></div>
-        <div class="form-group full"><label>Message / Questions</label><textarea id="app-msg-3" placeholder="Any questions, special requests or additional information…"></textarea></div>
+        <div class="form-group"><label data-i18n="apply.name">Full Name</label><input id="app-name-3" type="text" placeholder="Anna Müller" data-i18n-placeholder="apply.ph.name"/></div>
+        <div class="form-group"><label data-i18n="apply.email">Email Address</label><input id="app-email-3" type="email" placeholder="anna@example.com"/></div>
+        <div class="form-group"><label data-i18n="apply.movein">Desired Move-in Date</label><input id="app-movein-3" type="date"/></div>
+        <div class="form-group"><label data-i18n="apply.moveout">Expected Move-out Date</label><input id="app-moveout-3" type="date"/></div>
+        <div class="form-group full"><label data-i18n="apply.msg">Message / Questions</label><textarea id="app-msg-3" placeholder="Any questions, special requests or additional information…" data-i18n-placeholder="apply.ph.msg"></textarea></div>
       </div>
-      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(3)">Send Application</button>
-      <div id="apply-success-3" class="apply-success">✓ Your application has been sent. We will be in touch shortly.</div>
+      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(3)" data-i18n="apply.submit">Send Application</button>
+      <div id="apply-success-3" class="apply-success" data-i18n="apply.success">✓ Your application has been sent. We will be in touch shortly.</div>
     </div>
   </section>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
@@ -545,45 +560,45 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 
 <!-- ROOM 4 -->
 <div id="page-room4" class="page">
-  <div class="room-hero room-hero-4"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1>Room 4</h1></div></div>
+  <div class="room-hero room-hero-4"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1 data-i18n="nav.r4">Room 4</h1></div></div>
   <div class="room-detail">
     <div>
-      <h2>About this room</h2>
-      <p>A compact and efficiently designed single room on the second floor. Perfect for focused students — a dedicated desk spans the full width of the room, with built-in shelving above.</p>
-      <p>Quiet rear-facing position. The shared bathroom is directly adjacent, and the kitchen is steps away.</p>
+      <h2 data-i18n="room.about">About this room</h2>
+      <p data-i18n="r4.p1">A compact and efficiently designed single room on the second floor. Perfect for focused students — a dedicated desk spans the full width of the room, with built-in shelving above.</p>
+      <p data-i18n="r4.p2">Quiet rear-facing position. The shared bathroom is directly adjacent, and the kitchen is steps away.</p>
       <div class="room-specs" style="margin-top:40px">
-        <div class="spec-row"><span class="label">Size</span><span class="value">19 m²</span></div>
-        <div class="spec-row"><span class="label">Type</span><span class="value">Single room</span></div>
-        <div class="spec-row"><span class="label">Floor</span><span class="value">2nd floor</span></div>
-        <div class="spec-row"><span class="label">Furnishing</span><span class="value">Fully furnished</span></div>
-        <div class="spec-row"><span class="label">Internet</span><span class="value">Gigabit included</span></div>
-        <div class="spec-row"><span class="label">Available from</span><span class="value">01 September 2026</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.size">Size</span><span class="value">19 m²</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.type">Type</span><span class="value" data-i18n="val.single_room">Single room</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.floor">Floor</span><span class="value" data-i18n="val.floor2">2nd floor</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.furnishing">Furnishing</span><span class="value" data-i18n="val.furnished">Fully furnished</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.internet">Internet</span><span class="value" data-i18n="val.gigabit">Gigabit included</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.available">Available from</span><span class="value" data-i18n="val.sep26">01 September 2026</span></div>
       </div>
     </div>
     <div>
       <div class="room-price">
-        <div class="price-label">Net monthly rent</div>
+        <div class="price-label" data-i18n="room.price_label">Net monthly rent</div>
         <div class="price" id="r4-net">€ 630</div>
         <div class="price-vat" id="r4-vatline">+ 19% VAT = € 749.70 / month</div>
-        <div class="price-note">incl. utilities & internet</div>
-        <button class="btn-dark" onclick="scrollToApply(4)">Apply Now</button>
+        <div class="price-note" data-i18n="room.price_note">incl. utilities &amp; internet</div>
+        <button class="btn-dark" onclick="scrollToApply(4)" data-i18n="room.apply">Apply Now</button>
       </div>
     </div>
   </div>
   <section class="apply-section" id="apply-4">
     <div class="apply-inner">
-      <h2>Apply for Room 4</h2>
-      <p class="apply-sub">Single room · 19 m² · Fill in your details and we will get back to you as soon as possible.</p>
+      <h2 data-i18n="apply.h2.4">Apply for Room 4</h2>
+      <p class="apply-sub" data-i18n="apply.sub.4">Single room · 19 m² · Fill in your details and we will get back to you as soon as possible.</p>
       <div id="app-err-4" class="error-msg"></div>
       <div class="apply-grid">
-        <div class="form-group"><label>Full Name</label><input id="app-name-4" type="text" placeholder="Anna Müller"/></div>
-        <div class="form-group"><label>Email Address</label><input id="app-email-4" type="email" placeholder="anna@example.com"/></div>
-        <div class="form-group"><label>Desired Move-in Date</label><input id="app-movein-4" type="date"/></div>
-        <div class="form-group"><label>Expected Move-out Date</label><input id="app-moveout-4" type="date"/></div>
-        <div class="form-group full"><label>Message / Questions</label><textarea id="app-msg-4" placeholder="Any questions, special requests or additional information…"></textarea></div>
+        <div class="form-group"><label data-i18n="apply.name">Full Name</label><input id="app-name-4" type="text" placeholder="Anna Müller" data-i18n-placeholder="apply.ph.name"/></div>
+        <div class="form-group"><label data-i18n="apply.email">Email Address</label><input id="app-email-4" type="email" placeholder="anna@example.com"/></div>
+        <div class="form-group"><label data-i18n="apply.movein">Desired Move-in Date</label><input id="app-movein-4" type="date"/></div>
+        <div class="form-group"><label data-i18n="apply.moveout">Expected Move-out Date</label><input id="app-moveout-4" type="date"/></div>
+        <div class="form-group full"><label data-i18n="apply.msg">Message / Questions</label><textarea id="app-msg-4" placeholder="Any questions, special requests or additional information…" data-i18n-placeholder="apply.ph.msg"></textarea></div>
       </div>
-      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(4)">Send Application</button>
-      <div id="apply-success-4" class="apply-success">✓ Your application has been sent. We will be in touch shortly.</div>
+      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(4)" data-i18n="apply.submit">Send Application</button>
+      <div id="apply-success-4" class="apply-success" data-i18n="apply.success">✓ Your application has been sent. We will be in touch shortly.</div>
     </div>
   </section>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
@@ -591,45 +606,45 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 
 <!-- ROOM 5 -->
 <div id="page-room5" class="page">
-  <div class="room-hero room-hero-5"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1>Room 5</h1></div></div>
+  <div class="room-hero room-hero-5"><div class="room-hero-overlay"></div><div class="room-hero-title"><span>Rheinalle 3</span><h1 data-i18n="nav.r5">Room 5</h1></div></div>
   <div class="room-detail">
     <div>
-      <h2>About this room</h2>
-      <p>The premium room — a generous double room on the top floor with a private balcony overlooking the Rhine. High ceilings, exposed beams and a designer kitchen nook make this truly special.</p>
-      <p>Ideal for a student who wants more space and character. Shared facilities are on the same floor.</p>
+      <h2 data-i18n="room.about">About this room</h2>
+      <p data-i18n="r5.p1">The premium room — a generous double room on the top floor with a private balcony overlooking the Rhine. High ceilings, exposed beams and a designer kitchen nook make this truly special.</p>
+      <p data-i18n="r5.p2">Ideal for a student who wants more space and character. Shared facilities are on the same floor.</p>
       <div class="room-specs" style="margin-top:40px">
-        <div class="spec-row"><span class="label">Size</span><span class="value">26 m²</span></div>
-        <div class="spec-row"><span class="label">Type</span><span class="value">Double room</span></div>
-        <div class="spec-row"><span class="label">Floor</span><span class="value">Top floor</span></div>
-        <div class="spec-row"><span class="label">Balcony</span><span class="value">Yes · Rhine view</span></div>
-        <div class="spec-row"><span class="label">Internet</span><span class="value">Gigabit included</span></div>
-        <div class="spec-row"><span class="label">Available from</span><span class="value">01 October 2026</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.size">Size</span><span class="value">26 m²</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.type">Type</span><span class="value" data-i18n="val.double_room">Double room</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.floor">Floor</span><span class="value" data-i18n="val.floor_top">Top floor</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.balcony">Balcony</span><span class="value" data-i18n="val.yes_rhine">Yes · Rhine view</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.internet">Internet</span><span class="value" data-i18n="val.gigabit">Gigabit included</span></div>
+        <div class="spec-row"><span class="label" data-i18n="spec.available">Available from</span><span class="value" data-i18n="val.oct26">01 October 2026</span></div>
       </div>
     </div>
     <div>
       <div class="room-price">
-        <div class="price-label">Net monthly rent</div>
+        <div class="price-label" data-i18n="room.price_label">Net monthly rent</div>
         <div class="price" id="r5-net">€ 790</div>
         <div class="price-vat" id="r5-vatline">+ 19% VAT = € 940.10 / month</div>
-        <div class="price-note">incl. utilities & internet</div>
-        <button class="btn-dark" onclick="scrollToApply(5)">Apply Now</button>
+        <div class="price-note" data-i18n="room.price_note">incl. utilities &amp; internet</div>
+        <button class="btn-dark" onclick="scrollToApply(5)" data-i18n="room.apply">Apply Now</button>
       </div>
     </div>
   </div>
   <section class="apply-section" id="apply-5">
     <div class="apply-inner">
-      <h2>Apply for Room 5</h2>
-      <p class="apply-sub">Double room · 26 m² · Fill in your details and we will get back to you as soon as possible.</p>
+      <h2 data-i18n="apply.h2.5">Apply for Room 5</h2>
+      <p class="apply-sub" data-i18n="apply.sub.5">Double room · 26 m² · Fill in your details and we will get back to you as soon as possible.</p>
       <div id="app-err-5" class="error-msg"></div>
       <div class="apply-grid">
-        <div class="form-group"><label>Full Name</label><input id="app-name-5" type="text" placeholder="Anna Müller"/></div>
-        <div class="form-group"><label>Email Address</label><input id="app-email-5" type="email" placeholder="anna@example.com"/></div>
-        <div class="form-group"><label>Desired Move-in Date</label><input id="app-movein-5" type="date"/></div>
-        <div class="form-group"><label>Expected Move-out Date</label><input id="app-moveout-5" type="date"/></div>
-        <div class="form-group full"><label>Message / Questions</label><textarea id="app-msg-5" placeholder="Any questions, special requests or additional information…"></textarea></div>
+        <div class="form-group"><label data-i18n="apply.name">Full Name</label><input id="app-name-5" type="text" placeholder="Anna Müller" data-i18n-placeholder="apply.ph.name"/></div>
+        <div class="form-group"><label data-i18n="apply.email">Email Address</label><input id="app-email-5" type="email" placeholder="anna@example.com"/></div>
+        <div class="form-group"><label data-i18n="apply.movein">Desired Move-in Date</label><input id="app-movein-5" type="date"/></div>
+        <div class="form-group"><label data-i18n="apply.moveout">Expected Move-out Date</label><input id="app-moveout-5" type="date"/></div>
+        <div class="form-group full"><label data-i18n="apply.msg">Message / Questions</label><textarea id="app-msg-5" placeholder="Any questions, special requests or additional information…" data-i18n-placeholder="apply.ph.msg"></textarea></div>
       </div>
-      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(5)">Send Application</button>
-      <div id="apply-success-5" class="apply-success">✓ Your application has been sent. We will be in touch shortly.</div>
+      <button class="btn-dark" style="width:auto;padding:14px 44px;display:inline-block" onclick="submitApplication(5)" data-i18n="apply.submit">Send Application</button>
+      <div id="apply-success-5" class="apply-success" data-i18n="apply.success">✓ Your application has been sent. We will be in touch shortly.</div>
     </div>
   </section>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
@@ -637,47 +652,47 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 
 <!-- ═══ ACCOUNT ════════════════════════════════════════ -->
 <div id="page-account" class="page">
-  <div class="account-hero"><h1>My Account</h1></div>
+  <div class="account-hero"><h1 data-i18n="acc.h1">My Account</h1></div>
   <div class="account-tabs">
-    <div class="account-tab active" data-tab="login">Sign In</div>
-    <div class="account-tab" data-tab="register">Create Account</div>
+    <div class="account-tab active" data-tab="login" data-i18n="acc.tab_signin">Sign In</div>
+    <div class="account-tab" data-tab="register" data-i18n="acc.tab_create">Create Account</div>
   </div>
   <div class="account-content">
     <div class="panel active" id="panel-login">
-      <h2>Sign in</h2>
+      <h2 data-i18n="acc.signin_h2">Sign in</h2>
       <div id="login-error" class="error-msg"></div>
-      <div class="form-group"><label>Email</label><input id="login-email" type="email" placeholder="you@example.com"/></div>
-      <div class="form-group"><label>Password</label><input id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button class="btn-dark" onclick="doLogin()">Sign In</button>
+      <div class="form-group"><label data-i18n="acc.email_lbl">Email</label><input id="login-email" type="email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label data-i18n="acc.pass_lbl">Password</label><input id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn-dark" onclick="doLogin()" data-i18n="acc.signin_btn">Sign In</button>
       <div class="form-divider">or</div>
-      <p style="text-align:center;font-size:.82rem;color:#777">No account? <button class="form-link" onclick="switchAccountTab('register')">Create one here</button></p>
+      <p style="text-align:center;font-size:.82rem;color:#777"><span data-i18n="acc.no_account">No account?</span> <button class="form-link" onclick="switchAccountTab('register')" data-i18n="acc.create_here">Create one here</button></p>
       <div class="demo-note">
-        <strong>Demo credentials</strong><br>
+        <strong data-i18n="acc.demo_title">Demo credentials</strong><br>
         Admin: admin@rheinalle3.de / Rhein2026<br>
         Tenant: anna@example.com / test1234
       </div>
     </div>
     <div class="panel" id="panel-register">
-      <h2>Create an account</h2>
+      <h2 data-i18n="acc.create_h2">Create an account</h2>
       <div id="reg-error" class="error-msg"></div>
-      <div class="form-group"><label>First name</label><input id="reg-fname" type="text" placeholder="Anna"/></div>
-      <div class="form-group"><label>Last name</label><input id="reg-lname" type="text" placeholder="Müller"/></div>
-      <div class="form-group"><label>Email</label><input id="reg-email" type="email" placeholder="you@example.com"/></div>
-      <div class="form-group"><label>Room</label>
+      <div class="form-group"><label data-i18n="acc.fname">First name</label><input id="reg-fname" type="text" placeholder="Anna"/></div>
+      <div class="form-group"><label data-i18n="acc.lname">Last name</label><input id="reg-lname" type="text" placeholder="Müller"/></div>
+      <div class="form-group"><label data-i18n="acc.email_lbl">Email</label><input id="reg-email" type="email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label data-i18n="acc.room_lbl">Room</label>
         <select id="reg-room">
-          <option value="">Select your room…</option>
-          <option value="1">Room 1 — Single, 18 m²</option>
-          <option value="2">Room 2 — Single, 20 m²</option>
-          <option value="3">Room 3 — Double, 24 m²</option>
-          <option value="4">Room 4 — Single, 19 m²</option>
-          <option value="5">Room 5 — Double, 26 m²</option>
+          <option value="" data-i18n="acc.select_room">Select your room…</option>
+          <option value="1" data-i18n="acc.room_opt.1">Room 1 — Single, 18 m²</option>
+          <option value="2" data-i18n="acc.room_opt.2">Room 2 — Single, 20 m²</option>
+          <option value="3" data-i18n="acc.room_opt.3">Room 3 — Double, 24 m²</option>
+          <option value="4" data-i18n="acc.room_opt.4">Room 4 — Single, 19 m²</option>
+          <option value="5" data-i18n="acc.room_opt.5">Room 5 — Double, 26 m²</option>
         </select>
       </div>
-      <div class="form-group"><label>Password</label><input id="reg-pass" type="password" placeholder="Minimum 6 characters"/></div>
-      <div class="form-group"><label>Confirm password</label><input id="reg-pass2" type="password" placeholder="Repeat password"/></div>
-      <button class="btn-dark" onclick="doRegister()">Create Account</button>
+      <div class="form-group"><label data-i18n="acc.pass_lbl">Password</label><input id="reg-pass" type="password" data-i18n-placeholder="acc.pass_min" placeholder="Minimum 6 characters"/></div>
+      <div class="form-group"><label data-i18n="acc.confirm_pass">Confirm password</label><input id="reg-pass2" type="password" data-i18n-placeholder="acc.repeat_pass" placeholder="Repeat password"/></div>
+      <button class="btn-dark" onclick="doRegister()" data-i18n="acc.create_btn">Create Account</button>
       <div class="form-divider">or</div>
-      <p style="text-align:center;font-size:.82rem;color:#777">Already have an account? <button class="form-link" onclick="switchAccountTab('login')">Sign in here</button></p>
+      <p style="text-align:center;font-size:.82rem;color:#777"><span data-i18n="acc.have_acc">Already have an account?</span> <button class="form-link" onclick="switchAccountTab('login')" data-i18n="acc.signin_here">Sign in here</button></p>
     </div>
   </div>
   <footer class="footer"><p>© 2026 Rheinalle 3 · Rheinallee 3, 65375 Oestrich-Winkel</p></footer>
@@ -700,6 +715,165 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
 </div>
 
 <script>
+// ─── TRANSLATIONS ─────────────────────────────────────────────────
+const T = {
+en:{
+'nav.r1':'Room 1','nav.r2':'Room 2','nav.r3':'Room 3','nav.r4':'Room 4','nav.r5':'Room 5',
+'hero.h1':'Student Living\nin the Rheingau','hero.sub':'Five rooms · Rheinallee 3, 65375 Oestrich-Winkel','hero.btn':'Explore Rooms',
+'home.rooms_h':'Our Rooms','room.single':'Single','room.double':'Double',
+'room.about':'About this room','room.price_label':'Net monthly rent','room.price_note':'incl. utilities & internet','room.apply':'Apply Now',
+'room.vat_pre':'+ 19% VAT = €','room.vat_suf':'/ month',
+'spec.size':'Size','spec.type':'Type','spec.floor':'Floor','spec.furnishing':'Furnishing','spec.internet':'Internet','spec.available':'Available from','spec.balcony':'Balcony',
+'val.single_room':'Single room','val.double_room':'Double room','val.floor1':'1st floor','val.floor2':'2nd floor','val.floor3':'3rd floor','val.floor_top':'Top floor','val.furnished':'Fully furnished','val.gigabit':'Gigabit included','val.sep26':'01 September 2026','val.oct26':'01 October 2026','val.yes_rhine':'Yes · Rhine view',
+'r1.p1':'A bright single room on the first floor with a view of the inner courtyard. Newly furnished with a Scandinavian-inspired aesthetic, plenty of natural light and smart storage solutions.',
+'r1.p2':'Part of a shared flat with four other students. Fully equipped kitchen, two bathrooms and a comfortable living area are shared.',
+'r2.p1':'A spacious single room with a south-facing window and warm afternoon light. Features a large built-in wardrobe, a dedicated study zone and a comfortable sleeping area.',
+'r2.p2':'Situated on the second floor with a quiet position within the flat. Shared amenities include a modern kitchen and two bathrooms.',
+'r3.p1':'The largest room in the flat — a double room ideal for a student who values extra space. Features a seating area separate from the sleeping and study zones, plus a walk-in wardrobe.',
+'r3.p2':'Corner position on the third floor with a view of both the street and the inner courtyard.',
+'r4.p1':'A compact and efficiently designed single room on the second floor. Perfect for focused students — a dedicated desk spans the full width of the room, with built-in shelving above.',
+'r4.p2':'Quiet rear-facing position. The shared bathroom is directly adjacent, and the kitchen is steps away.',
+'r5.p1':'The premium room — a generous double room on the top floor with a private balcony overlooking the Rhine. High ceilings, exposed beams and a designer kitchen nook make this truly special.',
+'r5.p2':'Ideal for a student who wants more space and character. Shared facilities are on the same floor.',
+'apply.h2.1':'Apply for Room 1','apply.h2.2':'Apply for Room 2','apply.h2.3':'Apply for Room 3','apply.h2.4':'Apply for Room 4','apply.h2.5':'Apply for Room 5',
+'apply.sub.1':'Single room · 18 m² · Fill in your details and we will get back to you as soon as possible.',
+'apply.sub.2':'Single room · 20 m² · Fill in your details and we will get back to you as soon as possible.',
+'apply.sub.3':'Double room · 24 m² · Fill in your details and we will get back to you as soon as possible.',
+'apply.sub.4':'Single room · 19 m² · Fill in your details and we will get back to you as soon as possible.',
+'apply.sub.5':'Double room · 26 m² · Fill in your details and we will get back to you as soon as possible.',
+'apply.name':'Full Name','apply.email':'Email Address','apply.movein':'Desired Move-in Date','apply.moveout':'Expected Move-out Date','apply.msg':'Message / Questions',
+'apply.submit':'Send Application','apply.success':'✓ Your application has been sent. We will be in touch shortly.',
+'apply.ph.name':'Anna Müller','apply.ph.msg':'Any questions, special requests or additional information…',
+'apply.err.name':'Please enter your name and email address.','apply.err.movein':'Please select a desired move-in date.','apply.err.email':'Please enter a valid email address.',
+'acc.h1':'My Account','acc.tab_signin':'Sign In','acc.tab_create':'Create Account','acc.signin_h2':'Sign in','acc.email_lbl':'Email','acc.pass_lbl':'Password',
+'acc.signin_btn':'Sign In','acc.no_account':'No account?','acc.create_here':'Create one here','acc.create_h2':'Create an account',
+'acc.fname':'First name','acc.lname':'Last name','acc.room_lbl':'Room','acc.select_room':'Select your room…',
+'acc.room_opt.1':'Room 1 — Single, 18 m²','acc.room_opt.2':'Room 2 — Single, 20 m²','acc.room_opt.3':'Room 3 — Double, 24 m²','acc.room_opt.4':'Room 4 — Single, 19 m²','acc.room_opt.5':'Room 5 — Double, 26 m²',
+'acc.pass_min':'Minimum 6 characters','acc.confirm_pass':'Confirm password','acc.repeat_pass':'Repeat password',
+'acc.create_btn':'Create Account','acc.have_acc':'Already have an account?','acc.signin_here':'Sign in here','acc.demo_title':'Demo credentials',
+'err.fill_all':'Please fill all fields.','err.pass_match':'Passwords do not match.','err.pass_short':'Password must be at least 6 characters.',
+'err.email_taken':'This email is already registered.','err.wrong_creds':'Incorrect email or password.',
+'dash.welcome':'Welcome back','dash.your_room':'Your Room','dash.net_rent':'Net Rent','dash.gross_rent':'Gross incl. 19% VAT','dash.address':'Address',
+'dash.your_inv':'Your Invoices','dash.signout':'Sign Out','dash.no_inv':'No invoices yet.',
+'col.inv_no':'Invoice No.','col.period':'Period','col.net':'Net','col.vat':'VAT 19%','col.gross':'Gross Total','col.view':'View / Print',
+'st.paid':'paid','st.pending':'pending','st.overdue':'overdue',
+'adm.panel':'Admin Panel','adm.overview':'Overview','adm.rooms':'Rooms & Prices','adm.tenants':'Tenants','adm.create':'Create Invoices','adm.invoices':'All Invoices','adm.settings':'Settings','adm.signout':'Sign Out',
+'ov.tenants':'Tenants','ov.invoices':'Invoices','ov.outstanding':'Outstanding (gross)','ov.total':'Total Billed (gross)','ov.recent':'Recent Invoices',
+'rp.title':'Rooms & Prices','rp.col.room':'Room','rp.col.type':'Type','rp.col.size':'Size','rp.col.net':'Net Price (€ / month)','rp.col.gross':'Gross incl. 19% VAT','rp.save':'Save All Prices','rp.saved':'✓ Saved — prices updated everywhere',
+'rp.desc':'Edit net prices below and click <strong>Save All</strong>. Changes reflect immediately on room pages, invoice creator, and tenant dashboards.',
+'ten.title':'Tenants','ten.add_btn':'+ Add Tenant','ten.col.name':'Name','ten.col.email':'Email','ten.col.room':'Room','ten.col.rent':'Gross Rent','ten.col.inv':'Invoices',
+'ten.none':'No tenants yet.','ten.add_h3':'Add New Tenant','ten.full_name':'Full name','ten.init_pass':'Initial password','ten.save':'Save','ten.cancel':'Cancel','ten.remove':'Remove','ten.view_inv':'Invoices',
+'cr.title':'Create Invoices','cr.batch':'Batch apply:','cr.apply_sel':'Apply to selected',
+'cr.col.tenant':'Tenant','cr.col.room':'Room','cr.col.period':'Period','cr.col.net':'Net (€)','cr.col.gross':'Gross incl. VAT','cr.col.due':'Due Date','cr.col.action':'Action',
+'cr.generate':'Generate','cr.gen_sel':'Generate Selected','cr.done_msg':'✓ Invoices created','cr.done_btn':'✓ Done','cr.no_tenants':'No tenants yet. Add tenants first.',
+'it.col.no':'Invoice No.','it.col.tenant':'Tenant','it.col.room':'Room','it.col.period':'Period','it.col.net':'Net','it.col.vat':'VAT 19%','it.col.gross':'Gross Total',
+'it.view':'View','it.email':'Email','it.delete':'Delete','it.none':'No invoices yet.',
+'ai.title':'All Invoices',
+'set.title':'Email Settings','set.ejs_cfg':'EmailJS Configuration','set.pub_key':'Public Key','set.svc_id':'Service ID','set.tpl_inv':'Invoice Template ID','set.tpl_app':'Application Template ID (can be same)',
+'set.sender':'Sender & Notification Emails','set.from_name':'Sender Name','set.from_email':'Sender Email (your domain)','set.admin_email':'Admin Notification Email (receives applications)','set.save':'Save Settings',
+'set.desc':'Connect <a href="https://www.emailjs.com" target="_blank">EmailJS</a> to send emails from your own domain. Create a free account and set up a template with variables:<br><code>to_email</code> · <code>to_name</code> · <code>invoice_id</code> · <code>period</code> · <code>net_amount</code> · <code>vat_amount</code> · <code>gross_amount</code> · <code>due_date</code> · <code>from_name</code><br>For applications: <code>from_name</code> · <code>from_email</code> · <code>room_name</code> · <code>movein_date</code> · <code>moveout_date</code> · <code>message</code>',
+'inv.bill_to':'Bill to','inv.monthly_rent':'Monthly Rent','inv.utilities':'Utilities & Internet (included)','inv.net_total':'Net total','inv.vat_line':'VAT 19 %','inv.gross_total':'Gross total due','inv.save_pdf':'Save as PDF / Print','inv.send_email':'Send Email',
+'inv.iban_note':'Bank transfer to: IBAN DE00 0000 0000 0000 0000 00 · BIC XXXXDEXX',
+'confirm.del_inv':'Delete this invoice?','confirm.rem_tenant':'Remove this tenant? Their invoices will remain.',
+'mob.my_account':'My Account','mob.signin':'Sign In / My Account','mob.signout':'Sign Out',
+'email.sent_to':'✓ Sent to','email.failed':'Could not send:','email.check_cfg':'Check your EmailJS credentials in Admin → Settings.',
+'email.not_cfg':'EmailJS not configured. Click <strong>Open in Mail App</strong> to send via your local mail client, or configure EmailJS in <strong>Admin → Settings</strong>.','email.open_mail':'Open in Mail App','email.configure':'Configure Email',
+'inv.status.paid':'PAID','inv.status.pending':'PENDING','inv.status.overdue':'OVERDUE',
+'pr.issued':'Issued:','pr.due':'Due:'
+},
+de:{
+'nav.r1':'Zimmer 1','nav.r2':'Zimmer 2','nav.r3':'Zimmer 3','nav.r4':'Zimmer 4','nav.r5':'Zimmer 5',
+'hero.h1':'Studentisches Wohnen\nim Rheingau','hero.sub':'Fünf Zimmer · Rheinallee 3, 65375 Oestrich-Winkel','hero.btn':'Zimmer entdecken',
+'home.rooms_h':'Unsere Zimmer','room.single':'Einzel','room.double':'Doppel',
+'room.about':'Über dieses Zimmer','room.price_label':'Nettomiete monatlich','room.price_note':'inkl. Nebenkosten & Internet','room.apply':'Jetzt bewerben',
+'room.vat_pre':'+ 19% MwSt. = €','room.vat_suf':'/ Monat',
+'spec.size':'Größe','spec.type':'Typ','spec.floor':'Stockwerk','spec.furnishing':'Ausstattung','spec.internet':'Internet','spec.available':'Verfügbar ab','spec.balcony':'Balkon',
+'val.single_room':'Einzelzimmer','val.double_room':'Doppelzimmer','val.floor1':'1. Etage','val.floor2':'2. Etage','val.floor3':'3. Etage','val.floor_top':'Dachgeschoss','val.furnished':'Vollmöbliert','val.gigabit':'Gigabit inklusive','val.sep26':'01. September 2026','val.oct26':'01. Oktober 2026','val.yes_rhine':'Ja · Rheinblick',
+'r1.p1':'Ein helles Einzelzimmer im ersten Stockwerk mit Blick auf den Innenhof. Frisch eingerichtet im skandinavischen Stil mit viel natürlichem Licht und cleveren Stauraumlösungen.',
+'r1.p2':'Teil einer Wohngemeinschaft mit vier weiteren Studierenden. Voll ausgestattete Küche, zwei Badezimmer und ein gemütlicher Gemeinschaftsbereich stehen allen zur Verfügung.',
+'r2.p1':'Ein geräumiges Einzelzimmer mit Südausrichtung und warmem Nachmittagslicht. Großer Einbauschrank, dedizierter Arbeitsbereich und komfortabler Schlafbereich.',
+'r2.p2':'Ruhige Lage im zweiten Stockwerk. Gemeinschaftliche Ausstattung umfasst eine moderne Küche und zwei Badezimmer.',
+'r3.p1':'Das größte Zimmer in der WG – ein Doppelzimmer, ideal für Studierende, die mehr Platz schätzen. Separater Sitzbereich, Schlaf- und Arbeitszone sowie begehbarer Kleiderschrank.',
+'r3.p2':'Ecklage im dritten Stockwerk mit Blick auf Straße und Innenhof. Den ganzen Tag natürliches Licht.',
+'r4.p1':'Ein kompakt und effizient gestaltetes Einzelzimmer im zweiten Stockwerk. Ideal für fokussierte Studierende – ein breiter Schreibtisch über die gesamte Zimmerbreite mit Einbauregalen darüber.',
+'r4.p2':'Ruhige rückwärtige Lage. Das gemeinsame Badezimmer ist direkt nebenan, die Küche nur wenige Schritte entfernt.',
+'r5.p1':'Das Premium-Zimmer – ein großzügiges Doppelzimmer im Dachgeschoss mit privatem Balkon und Rheinblick. Hohe Decken, Dachbalken und eine besondere Küchenzeile machen dieses Zimmer einzigartig.',
+'r5.p2':'Ideal für Studierende, die mehr Raum und Charakter schätzen. Gemeinschaftliche Einrichtungen befinden sich auf demselben Stockwerk.',
+'apply.h2.1':'Zimmer 1 anfragen','apply.h2.2':'Zimmer 2 anfragen','apply.h2.3':'Zimmer 3 anfragen','apply.h2.4':'Zimmer 4 anfragen','apply.h2.5':'Zimmer 5 anfragen',
+'apply.sub.1':'Einzelzimmer · 18 m² · Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.',
+'apply.sub.2':'Einzelzimmer · 20 m² · Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.',
+'apply.sub.3':'Doppelzimmer · 24 m² · Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.',
+'apply.sub.4':'Einzelzimmer · 19 m² · Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.',
+'apply.sub.5':'Doppelzimmer · 26 m² · Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.',
+'apply.name':'Vollständiger Name','apply.email':'E-Mail-Adresse','apply.movein':'Gewünschtes Einzugsdatum','apply.moveout':'Voraussichtliches Auszugsdatum','apply.msg':'Nachricht / Fragen',
+'apply.submit':'Bewerbung absenden','apply.success':'✓ Ihre Bewerbung wurde gesendet. Wir melden uns in Kürze.',
+'apply.ph.name':'Anna Müller','apply.ph.msg':'Fragen, besondere Wünsche oder weitere Informationen…',
+'apply.err.name':'Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse ein.','apply.err.movein':'Bitte wählen Sie ein gewünschtes Einzugsdatum.','apply.err.email':'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+'acc.h1':'Mein Konto','acc.tab_signin':'Anmelden','acc.tab_create':'Konto erstellen','acc.signin_h2':'Anmelden','acc.email_lbl':'E-Mail','acc.pass_lbl':'Passwort',
+'acc.signin_btn':'Anmelden','acc.no_account':'Kein Konto?','acc.create_here':'Hier registrieren','acc.create_h2':'Konto erstellen',
+'acc.fname':'Vorname','acc.lname':'Nachname','acc.room_lbl':'Zimmer','acc.select_room':'Zimmer auswählen…',
+'acc.room_opt.1':'Zimmer 1 — Einzel, 18 m²','acc.room_opt.2':'Zimmer 2 — Einzel, 20 m²','acc.room_opt.3':'Zimmer 3 — Doppel, 24 m²','acc.room_opt.4':'Zimmer 4 — Einzel, 19 m²','acc.room_opt.5':'Zimmer 5 — Doppel, 26 m²',
+'acc.pass_min':'Mindestens 6 Zeichen','acc.confirm_pass':'Passwort bestätigen','acc.repeat_pass':'Passwort wiederholen',
+'acc.create_btn':'Konto erstellen','acc.have_acc':'Bereits ein Konto?','acc.signin_here':'Hier anmelden','acc.demo_title':'Demo-Zugangsdaten',
+'err.fill_all':'Bitte alle Felder ausfüllen.','err.pass_match':'Passwörter stimmen nicht überein.','err.pass_short':'Das Passwort muss mindestens 6 Zeichen lang sein.',
+'err.email_taken':'Diese E-Mail-Adresse ist bereits registriert.','err.wrong_creds':'Falsche E-Mail-Adresse oder falsches Passwort.',
+'dash.welcome':'Willkommen zurück','dash.your_room':'Ihr Zimmer','dash.net_rent':'Nettomiete','dash.gross_rent':'Brutto inkl. 19% MwSt.','dash.address':'Adresse',
+'dash.your_inv':'Ihre Rechnungen','dash.signout':'Abmelden','dash.no_inv':'Noch keine Rechnungen.',
+'col.inv_no':'Rechnungsnr.','col.period':'Zeitraum','col.net':'Netto','col.vat':'MwSt. 19%','col.gross':'Bruttobetrag','col.view':'Ansehen / Drucken',
+'st.paid':'bezahlt','st.pending':'ausstehend','st.overdue':'überfällig',
+'adm.panel':'Verwaltung','adm.overview':'Übersicht','adm.rooms':'Zimmer & Preise','adm.tenants':'Mieter','adm.create':'Rechnungen erstellen','adm.invoices':'Alle Rechnungen','adm.settings':'Einstellungen','adm.signout':'Abmelden',
+'ov.tenants':'Mieter','ov.invoices':'Rechnungen','ov.outstanding':'Ausstehend (brutto)','ov.total':'Gesamt (brutto)','ov.recent':'Aktuelle Rechnungen',
+'rp.title':'Zimmer & Preise','rp.col.room':'Zimmer','rp.col.type':'Typ','rp.col.size':'Größe','rp.col.net':'Nettopreis (€ / Monat)','rp.col.gross':'Brutto inkl. 19% MwSt.','rp.save':'Alle Preise speichern','rp.saved':'✓ Gespeichert — Preise überall aktualisiert',
+'rp.desc':'Nettopreise unten bearbeiten und auf <strong>Alle speichern</strong> klicken. Änderungen wirken sofort auf allen Seiten, im Rechnungsersteller und auf Mieter-Dashboards.',
+'ten.title':'Mieter','ten.add_btn':'+ Mieter hinzufügen','ten.col.name':'Name','ten.col.email':'E-Mail','ten.col.room':'Zimmer','ten.col.rent':'Bruttomiete','ten.col.inv':'Rechnungen',
+'ten.none':'Noch keine Mieter.','ten.add_h3':'Neuen Mieter hinzufügen','ten.full_name':'Vollständiger Name','ten.init_pass':'Anfangspasswort','ten.save':'Speichern','ten.cancel':'Abbrechen','ten.remove':'Entfernen','ten.view_inv':'Rechnungen',
+'cr.title':'Rechnungen erstellen','cr.batch':'Batch-Anwendung:','cr.apply_sel':'Auf Ausgewählte anwenden',
+'cr.col.tenant':'Mieter','cr.col.room':'Zimmer','cr.col.period':'Zeitraum','cr.col.net':'Netto (€)','cr.col.gross':'Brutto inkl. MwSt.','cr.col.due':'Fälligkeitsdatum','cr.col.action':'Aktion',
+'cr.generate':'Erstellen','cr.gen_sel':'Ausgewählte erstellen','cr.done_msg':'✓ Rechnungen erstellt','cr.done_btn':'✓ Erledigt','cr.no_tenants':'Noch keine Mieter. Zuerst Mieter hinzufügen.',
+'it.col.no':'Rechnungsnr.','it.col.tenant':'Mieter','it.col.room':'Zimmer','it.col.period':'Zeitraum','it.col.net':'Netto','it.col.vat':'MwSt. 19%','it.col.gross':'Bruttobetrag',
+'it.view':'Ansehen','it.email':'E-Mail','it.delete':'Löschen','it.none':'Noch keine Rechnungen.',
+'ai.title':'Alle Rechnungen',
+'set.title':'E-Mail-Einstellungen','set.ejs_cfg':'EmailJS-Konfiguration','set.pub_key':'Öffentlicher Schlüssel','set.svc_id':'Service-ID','set.tpl_inv':'Rechnungsvorlage-ID','set.tpl_app':'Bewerbungsvorlage-ID (kann gleich sein)',
+'set.sender':'Absender & Benachrichtigungs-E-Mails','set.from_name':'Absendername','set.from_email':'Absender-E-Mail (Ihre Domain)','set.admin_email':'Admin-E-Mail (empfängt Bewerbungen)','set.save':'Einstellungen speichern',
+'set.desc':'Verbinden Sie <a href="https://www.emailjs.com" target="_blank">EmailJS</a> für automatischen E-Mail-Versand von Ihrer Domain. Erstellen Sie ein kostenloses Konto und richten Sie eine Vorlage mit diesen Variablen ein:<br><code>to_email</code> · <code>to_name</code> · <code>invoice_id</code> · <code>period</code> · <code>net_amount</code> · <code>vat_amount</code> · <code>gross_amount</code> · <code>due_date</code> · <code>from_name</code><br>Für Bewerbungen zusätzlich: <code>from_name</code> · <code>from_email</code> · <code>room_name</code> · <code>movein_date</code> · <code>moveout_date</code> · <code>message</code>',
+'inv.bill_to':'Rechnungsempfänger','inv.monthly_rent':'Monatsmiete','inv.utilities':'Nebenkosten & Internet (inklusive)','inv.net_total':'Nettobetrag','inv.vat_line':'MwSt. 19 %','inv.gross_total':'Bruttobetrag fällig','inv.save_pdf':'Als PDF speichern / Drucken','inv.send_email':'E-Mail senden',
+'inv.iban_note':'Banküberweisung an: IBAN DE00 0000 0000 0000 0000 00 · BIC XXXXDEXX',
+'confirm.del_inv':'Diese Rechnung löschen?','confirm.rem_tenant':'Diesen Mieter entfernen? Seine Rechnungen bleiben erhalten.',
+'mob.my_account':'Mein Konto','mob.signin':'Anmelden / Mein Konto','mob.signout':'Abmelden',
+'email.sent_to':'✓ Gesendet an','email.failed':'Senden fehlgeschlagen:','email.check_cfg':'Überprüfen Sie Ihre EmailJS-Zugangsdaten unter Verwaltung → Einstellungen.',
+'email.not_cfg':'EmailJS ist nicht konfiguriert. Klicken Sie auf <strong>In Mail-App öffnen</strong> oder konfigurieren Sie EmailJS unter <strong>Verwaltung → Einstellungen</strong>.','email.open_mail':'In Mail-App öffnen','email.configure':'E-Mail konfigurieren',
+'inv.status.paid':'BEZAHLT','inv.status.pending':'AUSSTEHEND','inv.status.overdue':'ÜBERFÄLLIG',
+'pr.issued':'Ausgestellt:','pr.due':'Fällig:'
+}};
+
+let lang = localStorage.getItem('ra_lang') || 'en';
+
+function t(k){ return T[lang]?.[k] ?? T.en?.[k] ?? k; }
+
+function setLang(l){
+  lang = l;
+  localStorage.setItem('ra_lang', l);
+  document.documentElement.lang = l;
+  document.getElementById('btn-en')?.classList.toggle('active', l==='en');
+  document.getElementById('btn-de')?.classList.toggle('active', l==='de');
+  document.getElementById('mob-btn-en')?.classList.toggle('active', l==='en');
+  document.getElementById('mob-btn-de')?.classList.toggle('active', l==='de');
+  applyTranslations();
+  if (document.getElementById('page-personal')?.classList.contains('active')) renderPersonal();
+  if (document.getElementById('page-admin')?.classList.contains('active'))    renderAdmin();
+  updateMobileAccountArea();
+}
+
+function applyTranslations(){
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.dataset.i18n); if (v !== el.dataset.i18n) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const v = t(el.dataset.i18nPlaceholder); if (v !== el.dataset.i18nPlaceholder) el.placeholder = v;
+  });
+  [1,2,3,4,5].forEach(n => updateRoomDisplay(n));
+}
+
 // ─── CONSTANTS ────────────────────────────────────────────────────
 const ADMIN_EMAIL = 'admin@rheinalle3.de';
 const ADMIN_PASS  = 'Rhein2026';
@@ -745,8 +919,8 @@ function updateRoomDisplay(n) {
   const room = getRoom(n);
   const netEl  = document.getElementById('r'+n+'-net');
   const vatEl  = document.getElementById('r'+n+'-vatline');
-  if (netEl)  netEl.textContent  = '€ ' + fmt(room.price);
-  if (vatEl)  vatEl.textContent  = '+ 19% VAT = € ' + fmt(gross(room.price)) + ' / month';
+  if (netEl) netEl.textContent = '€ ' + fmt(room.price);
+  if (vatEl) vatEl.textContent = t('room.vat_pre') + ' ' + fmt(gross(room.price)) + ' ' + t('room.vat_suf');
 }
 
 // ─── CRYPTO ───────────────────────────────────────────────────────
@@ -924,27 +1098,27 @@ function renderPersonal(){
           <td>€ ${fmt(inv.amount)}</td>
           <td>€ ${fmt(vat(inv.amount))}</td>
           <td><strong>€ ${fmt(gross(inv.amount))}</strong></td>
-          <td><span class="tag-${inv.status}">${inv.status}</span></td>
-          <td><button class="btn-sm-ghost" onclick="previewInvoice('${inv.id}')">View / Print</button></td>
+          <td><span class="tag-${inv.status}">${t('st.'+inv.status)||inv.status}</span></td>
+          <td><button class="btn-sm-ghost" onclick="previewInvoice('${inv.id}')">${t('col.view')}</button></td>
         </tr>`).join('')
-    : `<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--mid)">No invoices yet.</td></tr>`;
+    : `<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--mid)">${t('dash.no_inv')}</td></tr>`;
   document.getElementById('page-personal').innerHTML=`
     <div class="dash-hero">
-      <div><div class="dash-hero-label">Welcome back</div><h1>${currentUser.name}</h1></div>
-      <button class="btn-outline-white" onclick="doLogout()">Sign Out</button>
+      <div><div class="dash-hero-label">${t('dash.welcome')}</div><h1>${currentUser.name}</h1></div>
+      <button class="btn-outline-white" onclick="doLogout()">${t('dash.signout')}</button>
     </div>
     <div class="dash-content">
       <div class="info-strip">
-        <div class="info-item"><div class="info-label">Your Room</div><div class="info-value">${room.name||'—'}</div></div>
-        <div class="info-item"><div class="info-label">Net Rent</div><div class="info-value">€ ${fmt(room.price)}</div></div>
-        <div class="info-item"><div class="info-label">Gross incl. 19% VAT</div><div class="info-value">€ ${fmt(gross(room.price))}</div></div>
-        <div class="info-item"><div class="info-label">Address</div><div class="info-value">Rheinallee 3, Oestrich-Winkel</div></div>
+        <div class="info-item"><div class="info-label">${t('dash.your_room')}</div><div class="info-value">${t('nav.r'+currentUser.room)||room.name||'—'}</div></div>
+        <div class="info-item"><div class="info-label">${t('dash.net_rent')}</div><div class="info-value">€ ${fmt(room.price)}</div></div>
+        <div class="info-item"><div class="info-label">${t('dash.gross_rent')}</div><div class="info-value">€ ${fmt(gross(room.price))}</div></div>
+        <div class="info-item"><div class="info-label">${t('dash.address')}</div><div class="info-value">Rheinallee 3, Oestrich-Winkel</div></div>
       </div>
       <div class="section-block">
-        <h2>Your Invoices</h2>
+        <h2>${t('dash.your_inv')}</h2>
         <div class="table-wrap">
           <table class="data-table">
-            <thead><tr><th>Invoice No.</th><th>Period</th><th>Net</th><th>VAT 19%</th><th>Gross Total</th><th>Status</th><th></th></tr></thead>
+            <thead><tr><th>${t('col.inv_no')}</th><th>${t('col.period')}</th><th>${t('col.net')}</th><th>${t('col.vat')}</th><th>${t('col.gross')}</th><th>${t('col.period')==='Period'?'Status':'Status'}</th><th></th></tr></thead>
             <tbody>${rows}</tbody>
           </table>
         </div>
@@ -958,11 +1132,11 @@ function renderAdmin(sec){
   if (!isAdmin){ showPage('account'); return; }
   if (sec) adminSection=sec;
   const tabs=[
-    {k:'overview',l:'Overview'},{k:'rooms',l:'Rooms & Prices'},
-    {k:'tenants',l:'Tenants'},{k:'create',l:'Create Invoices'},
-    {k:'invoices',l:'All Invoices'},{k:'settings',l:'Settings'},
+    {k:'overview',l:t('adm.overview')},{k:'rooms',l:t('adm.rooms')},
+    {k:'tenants',l:t('adm.tenants')},{k:'create',l:t('adm.create')},
+    {k:'invoices',l:t('adm.invoices')},{k:'settings',l:t('adm.settings')},
   ];
-  const subnav=tabs.map(t=>`<div class="admin-tab ${adminSection===t.k?'active':''}" onclick="renderAdmin('${t.k}')">${t.l}</div>`).join('');
+  const subnav=tabs.map(tab=>`<div class="admin-tab ${adminSection===tab.k?'active':''}" onclick="renderAdmin('${tab.k}')">${tab.l}</div>`).join('');
   let body='';
   if (adminSection==='overview') body=renderOverview();
   if (adminSection==='rooms')    body=renderRooms();
@@ -972,8 +1146,8 @@ function renderAdmin(sec){
   if (adminSection==='settings') body=renderSettings();
   document.getElementById('page-admin').innerHTML=`
     <div class="dash-hero admin-dash-hero">
-      <div><div class="dash-hero-label">Admin Panel</div><h1>Rheinalle 3</h1></div>
-      <button class="btn-outline-white" onclick="doLogout()">Sign Out</button>
+      <div><div class="dash-hero-label">${t('adm.panel')}</div><h1>Rheinalle 3</h1></div>
+      <button class="btn-outline-white" onclick="doLogout()">${t('adm.signout')}</button>
     </div>
     <div class="admin-subnav">${subnav}</div>
     <div class="admin-body">${body}</div>
@@ -987,12 +1161,12 @@ function renderOverview(){
   const totalGross=invs.reduce((s,i)=>s+gross(i.amount),0);
   return `
     <div class="stats-row">
-      <div class="stat"><div class="stat-val">${users.length}</div><div class="stat-lbl">Tenants</div></div>
-      <div class="stat"><div class="stat-val">${invs.length}</div><div class="stat-lbl">Invoices</div></div>
-      <div class="stat"><div class="stat-val">€ ${fmt(pendingGross)}</div><div class="stat-lbl">Outstanding (gross)</div></div>
-      <div class="stat"><div class="stat-val">€ ${fmt(totalGross)}</div><div class="stat-lbl">Total Billed (gross)</div></div>
+      <div class="stat"><div class="stat-val">${users.length}</div><div class="stat-lbl">${t('ov.tenants')}</div></div>
+      <div class="stat"><div class="stat-val">${invs.length}</div><div class="stat-lbl">${t('ov.invoices')}</div></div>
+      <div class="stat"><div class="stat-val">€ ${fmt(pendingGross)}</div><div class="stat-lbl">${t('ov.outstanding')}</div></div>
+      <div class="stat"><div class="stat-val">€ ${fmt(totalGross)}</div><div class="stat-lbl">${t('ov.total')}</div></div>
     </div>
-    <div class="section-block"><h2>Recent Invoices</h2>${invoiceTable([...DB.invoices()].reverse().slice(0,6))}</div>`;
+    <div class="section-block"><h2>${t('ov.recent')}</h2>${invoiceTable([...DB.invoices()].reverse().slice(0,6))}</div>`;
 }
 
 // ─── ROOMS & PRICES ───────────────────────────────────────────────
@@ -1000,8 +1174,8 @@ function renderRooms(){
   const rows=Object.entries(ROOM_DEFAULTS).map(([k])=>{
     const r=getRoom(k);
     return `<tr>
-      <td><strong>${r.name}</strong></td>
-      <td>${r.type}</td>
+      <td><strong>${t('nav.r'+k)||r.name}</strong></td>
+      <td>${t('val.'+(r.type==='Single room'?'single_room':'double_room'))||r.type}</td>
       <td>${r.size}</td>
       <td><input type="number" id="rp-${k}" value="${r.price}" step="1" min="0" onchange="liveGross(${k})"/></td>
       <td class="gross-display" id="rp-gross-${k}">€ ${fmt(gross(r.price))}</td>
@@ -1009,19 +1183,17 @@ function renderRooms(){
   }).join('');
   return `
     <div class="section-block">
-      <h2>Rooms &amp; Prices</h2>
-      <p style="font-size:.85rem;color:var(--mid);margin-bottom:24px;line-height:1.7">
-        Edit net prices below and click <strong>Save All</strong>. Changes reflect immediately on room pages, invoice creator, and tenant dashboards.
-      </p>
+      <h2>${t('rp.title')}</h2>
+      <p style="font-size:.85rem;color:var(--mid);margin-bottom:24px;line-height:1.7" data-i18n-html="rp.desc">Edit net prices below and click <strong>Save All</strong>. Changes reflect immediately.</p>
       <div class="table-wrap">
         <table class="price-editor-table">
-          <thead><tr><th>Room</th><th>Type</th><th>Size</th><th>Net Price (€ / month)</th><th>Gross incl. 19% VAT</th></tr></thead>
+          <thead><tr><th>${t('rp.col.room')}</th><th>${t('rp.col.type')}</th><th>${t('rp.col.size')}</th><th>${t('rp.col.net')}</th><th>${t('rp.col.gross')}</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
       <div style="margin-top:20px;display:flex;align-items:center;gap:16px">
-        <button class="btn-sm btn-sm-dark" style="padding:10px 28px" onclick="saveAllRoomPrices()">Save All Prices</button>
-        <span id="prices-saved" style="display:none;font-size:.82rem;color:#3a7a4a">✓ Saved — prices updated everywhere</span>
+        <button class="btn-sm btn-sm-dark" style="padding:10px 28px" onclick="saveAllRoomPrices()">${t('rp.save')}</button>
+        <span id="prices-saved" style="display:none;font-size:.82rem;color:#3a7a4a">${t('rp.saved')}</span>
       </div>
     </div>`;
 }
@@ -1052,38 +1224,38 @@ function renderTenants(){
     const r=getRoom(u.room);
     return `<tr>
       <td>${u.name}</td><td>${u.email}</td>
-      <td>${r.name||'—'}</td>
+      <td>${t('nav.r'+u.room)||r.name||'—'}</td>
       <td>€ ${fmt(gross(r.price))} / mo</td>
       <td>${DB.userInvoices(u.id).length}</td>
       <td>
-        <button class="btn-sm-ghost" onclick="previewTenantInvoices('${u.id}')">Invoices</button>
-        <button class="btn-sm-ghost-red" onclick="removeTenant('${u.id}')">Remove</button>
+        <button class="btn-sm-ghost" onclick="previewTenantInvoices('${u.id}')">${t('ten.view_inv')}</button>
+        <button class="btn-sm-ghost-red" onclick="removeTenant('${u.id}')">${t('ten.remove')}</button>
       </td>
     </tr>`;
   }).join('');
   return `
     <div class="section-block">
-      <div class="sec-head"><h2>Tenants</h2><button class="btn-sm btn-sm-accent" onclick="toggleAddTenant()">+ Add Tenant</button></div>
+      <div class="sec-head"><h2>${t('ten.title')}</h2><button class="btn-sm btn-sm-accent" onclick="toggleAddTenant()">${t('ten.add_btn')}</button></div>
       <div class="table-wrap">
         <table class="data-table">
-          <thead><tr><th>Name</th><th>Email</th><th>Room</th><th>Gross Rent</th><th>Invoices</th><th></th></tr></thead>
-          <tbody>${rows||'<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--mid)">No tenants yet.</td></tr>'}</tbody>
+          <thead><tr><th>${t('ten.col.name')}</th><th>${t('ten.col.email')}</th><th>${t('ten.col.room')}</th><th>${t('ten.col.rent')}</th><th>${t('ten.col.inv')}</th><th></th></tr></thead>
+          <tbody>${rows||`<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--mid)">${t('ten.none')}</td></tr>`}</tbody>
         </table>
       </div>
       <div id="add-tenant-form" style="display:none" class="inline-form">
-        <h3>Add New Tenant</h3>
+        <h3>${t('ten.add_h3')}</h3>
         <div id="nt-err" class="error-msg"></div>
-        <div class="form-group"><label>Full name</label><input id="nt-name" type="text" placeholder="Anna Müller"/></div>
-        <div class="form-group"><label>Email</label><input id="nt-email" type="email" placeholder="anna@example.com"/></div>
-        <div class="form-group"><label>Initial password</label><input id="nt-pass" type="text" placeholder="Tenant's password"/></div>
-        <div class="form-group"><label>Room</label>
+        <div class="form-group"><label>${t('ten.full_name')}</label><input id="nt-name" type="text" placeholder="Anna Müller"/></div>
+        <div class="form-group"><label>${t('acc.email_lbl')}</label><input id="nt-email" type="email" placeholder="anna@example.com"/></div>
+        <div class="form-group"><label>${t('ten.init_pass')}</label><input id="nt-pass" type="text" placeholder="Password"/></div>
+        <div class="form-group"><label>${t('ten.col.room')}</label>
           <select id="nt-room">
-            <option value="">Select room…</option>
-            ${Object.entries(ROOM_DEFAULTS).map(([k])=>{const r=getRoom(k);return `<option value="${k}">${r.name} — ${r.type}, ${r.size}, € ${r.price} net / € ${fmt(gross(r.price))} gross/mo</option>`;}).join('')}
+            <option value="">${t('acc.select_room')}</option>
+            ${Object.entries(ROOM_DEFAULTS).map(([k])=>{const r=getRoom(k);return `<option value="${k}">${t('nav.r'+k)||r.name} — ${t('val.'+(r.type==='Single room'?'single_room':'double_room'))}, ${r.size}, € ${r.price} / € ${fmt(gross(r.price))}</option>`;}).join('')}
           </select>
         </div>
-        <button class="btn-sm btn-sm-dark" onclick="addTenant()">Save</button>
-        <button class="btn-sm btn-sm-outline" style="margin-left:8px" onclick="toggleAddTenant()">Cancel</button>
+        <button class="btn-sm btn-sm-dark" onclick="addTenant()">${t('ten.save')}</button>
+        <button class="btn-sm btn-sm-outline" style="margin-left:8px" onclick="toggleAddTenant()">${t('ten.cancel')}</button>
       </div>
     </div>`;
 }
@@ -1104,37 +1276,38 @@ function renderCreate(){
       <td><input type="number" id="cra-${u.id}" value="${r.price||0}" step="0.01" style="width:80px"/> <span style="font-size:.7rem;color:var(--mid)">net</span></td>
       <td class="gross-display" id="crg-${u.id}">€ ${fmt(gross(r.price||0))}</td>
       <td><input type="date" id="crd-${u.id}" value="${defDue}" style="width:140px"/></td>
-      <td><button class="btn-sm btn-sm-dark" id="crb-${u.id}" onclick="genOne('${u.id}')">Generate</button></td>
+      <td><button class="btn-sm btn-sm-dark" id="crb-${u.id}" onclick="genOne('${u.id}')">${t('cr.generate')}</button></td>
     </tr>`;
   }).join('');
+  if (!users.length) return `<div class="section-block"><h2>${t('cr.title')}</h2><p style="color:var(--mid)">${t('cr.no_tenants')}</p></div>`;
   return `
     <div class="section-block">
-      <h2>Create Invoices</h2>
+      <h2>${t('cr.title')}</h2>
       <div class="bulk-bar">
-        <span>Batch apply:</span>
+        <span>${t('cr.batch')}</span>
         <input type="text" id="bulk-p" placeholder="e.g. June 2026" style="width:140px"/>
         <input type="date" id="bulk-d" value="${defDue}" style="width:150px"/>
-        <button class="btn-sm btn-sm-outline" onclick="applyBulk()">Apply to selected</button>
+        <button class="btn-sm btn-sm-outline" onclick="applyBulk()">${t('cr.apply_sel')}</button>
       </div>
       <div class="table-wrap" style="margin-top:0">
         <table class="excel-table">
           <thead><tr>
             <th style="width:36px"><input type="checkbox" checked onchange="toggleAll(this.checked)"/></th>
-            <th>Tenant</th><th>Room</th><th>Period</th><th>Net (€)</th><th>Gross incl. VAT</th><th>Due Date</th><th>Action</th>
+            <th>${t('cr.col.tenant')}</th><th>${t('cr.col.room')}</th><th>${t('cr.col.period')}</th><th>${t('cr.col.net')}</th><th>${t('cr.col.gross')}</th><th>${t('cr.col.due')}</th><th>${t('cr.col.action')}</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
       <div style="margin-top:16px;display:flex;align-items:center;gap:16px">
-        <button class="btn-sm btn-sm-accent" style="padding:10px 28px" onclick="genSelected()">Generate Selected</button>
-        <span id="gen-msg" style="display:none;font-size:.82rem;color:#3a7a4a">✓ Invoices created</span>
+        <button class="btn-sm btn-sm-accent" style="padding:10px 28px" onclick="genSelected()">${t('cr.gen_sel')}</button>
+        <span id="gen-msg" style="display:none;font-size:.82rem;color:#3a7a4a">${t('cr.done_msg')}</span>
       </div>
     </div>`;
 }
 
 // ─── ALL INVOICES ─────────────────────────────────────────────────
 function renderAllInvoices(){
-  return `<div class="section-block"><h2>All Invoices</h2>${invoiceTable([...DB.invoices()].reverse(), true)}</div>`;
+  return `<div class="section-block"><h2>${t('ai.title')}</h2>${invoiceTable([...DB.invoices()].reverse(), true)}</div>`;
 }
 
 // ─── SETTINGS ─────────────────────────────────────────────────────
@@ -1142,27 +1315,22 @@ function renderSettings(){
   const c=DB.emailCfg();
   return `
     <div class="section-block">
-      <h2>Email Settings</h2>
-      <p class="settings-desc">
-        Connect <a href="https://www.emailjs.com" target="_blank">EmailJS</a> to send emails from your own domain.
-        Create a free account, add an email service, and set up a template with variables:<br>
-        <code>to_email</code> · <code>to_name</code> · <code>invoice_id</code> · <code>period</code> · <code>net_amount</code> · <code>vat_amount</code> · <code>gross_amount</code> · <code>due_date</code> · <code>from_name</code><br>
-        For applications, the template also receives: <code>from_name</code> · <code>from_email</code> · <code>room_name</code> · <code>movein_date</code> · <code>moveout_date</code> · <code>message</code>
-      </p>
+      <h2>${t('set.title')}</h2>
+      <p class="settings-desc">${t('set.desc')}</p>
       <div class="cfg-section">
-        <h3>EmailJS Configuration</h3>
-        <div class="form-group"><label>Public Key</label><input id="cfg-pubkey" type="text" value="${c.publicKey||''}" placeholder="user_xxxxxxxxxxx"/></div>
-        <div class="form-group"><label>Service ID</label><input id="cfg-svcid" type="text" value="${c.serviceId||''}" placeholder="service_xxxxxxx"/></div>
-        <div class="form-group"><label>Invoice Template ID</label><input id="cfg-tplid" type="text" value="${c.templateId||''}" placeholder="template_xxxxxxx"/></div>
-        <div class="form-group"><label>Application Template ID</label><input id="cfg-app-tplid" type="text" value="${c.appTemplateId||''}" placeholder="template_xxxxxxx (can be same)"/></div>
+        <h3>${t('set.ejs_cfg')}</h3>
+        <div class="form-group"><label>${t('set.pub_key')}</label><input id="cfg-pubkey" type="text" value="${c.publicKey||''}" placeholder="user_xxxxxxxxxxx"/></div>
+        <div class="form-group"><label>${t('set.svc_id')}</label><input id="cfg-svcid" type="text" value="${c.serviceId||''}" placeholder="service_xxxxxxx"/></div>
+        <div class="form-group"><label>${t('set.tpl_inv')}</label><input id="cfg-tplid" type="text" value="${c.templateId||''}" placeholder="template_xxxxxxx"/></div>
+        <div class="form-group"><label>${t('set.tpl_app')}</label><input id="cfg-app-tplid" type="text" value="${c.appTemplateId||''}" placeholder="template_xxxxxxx"/></div>
       </div>
       <div class="cfg-section">
-        <h3>Sender &amp; Notification Emails</h3>
-        <div class="form-group"><label>Sender Name</label><input id="cfg-name" type="text" value="${c.fromName||'Rheinalle 3'}" placeholder="Rheinalle 3"/></div>
-        <div class="form-group"><label>Sender Email (your domain)</label><input id="cfg-email" type="email" value="${c.fromEmail||''}" placeholder="invoices@rheinalle3.de"/></div>
-        <div class="form-group"><label>Admin Notification Email (receives applications)</label><input id="cfg-admin-email" type="email" value="${c.adminEmail||''}" placeholder="admin@rheinalle3.de"/></div>
+        <h3>${t('set.sender')}</h3>
+        <div class="form-group"><label>${t('set.from_name')}</label><input id="cfg-name" type="text" value="${c.fromName||'Rheinalle 3'}" placeholder="Rheinalle 3"/></div>
+        <div class="form-group"><label>${t('set.from_email')}</label><input id="cfg-email" type="email" value="${c.fromEmail||''}" placeholder="invoices@rheinalle3.de"/></div>
+        <div class="form-group"><label>${t('set.admin_email')}</label><input id="cfg-admin-email" type="email" value="${c.adminEmail||''}" placeholder="admin@rheinalle3.de"/></div>
       </div>
-      <button class="btn-sm btn-sm-dark" style="padding:10px 28px" onclick="saveEmailCfg()">Save Settings</button>
+      <button class="btn-sm btn-sm-dark" style="padding:10px 28px" onclick="saveEmailCfg()">${t('set.save')}</button>
       <span id="cfg-saved" style="display:none;margin-left:12px;font-size:.82rem;color:#3a7a4a">✓ Saved</span>
     </div>`;
 }
@@ -1183,14 +1351,14 @@ function saveEmailCfg(){
 
 // ─── INVOICE HELPERS ──────────────────────────────────────────────
 function invoiceTable(invs, withDelete=false){
-  if (!invs.length) return `<p style="color:var(--mid);padding:24px 0">No invoices yet.</p>`;
+  if (!invs.length) return `<p style="color:var(--mid);padding:24px 0">${t('it.none')}</p>`;
   const users=DB.users();
   const rows=invs.map(inv=>{
     const u=users.find(x=>x.id===inv.userId)||{};
-    const del=withDelete?`<button class="btn-sm-ghost-red" onclick="delInvoice('${inv.id}')">Delete</button>`:'';
+    const del=withDelete?`<button class="btn-sm-ghost-red" onclick="delInvoice('${inv.id}')">${t('it.delete')}</button>`:'';
     return `<tr>
       <td>${inv.id}</td><td>${u.name||'—'}</td>
-      <td>${getRoom(inv.room)?.name||'—'}</td><td>${inv.period}</td>
+      <td>${t('nav.r'+inv.room)||getRoom(inv.room)?.name||'—'}</td><td>${inv.period}</td>
       <td>€ ${fmt(inv.amount)}</td>
       <td>€ ${fmt(vat(inv.amount))}</td>
       <td><strong>€ ${fmt(gross(inv.amount))}</strong></td>
@@ -1202,8 +1370,8 @@ function invoiceTable(invs, withDelete=false){
         </select>
       </td>
       <td>
-        <button class="btn-sm-ghost" onclick="previewInvoice('${inv.id}')">View</button>
-        <button class="btn-sm-ghost" style="margin-left:10px;color:#2d7a40" onclick="sendInvoiceEmail('${inv.id}')">Email</button>
+        <button class="btn-sm-ghost" onclick="previewInvoice('${inv.id}')">${t('it.view')}</button>
+        <button class="btn-sm-ghost" style="margin-left:10px;color:#2d7a40" onclick="sendInvoiceEmail('${inv.id}')">${t('it.email')}</button>
         ${del}
       </td>
     </tr>`;
@@ -1223,7 +1391,7 @@ function genOne(uid){
   if (!user||!period) return;
   DB.addInvoice({id:DB.nextId(),userId:uid,room:user.room,period,amount,dueDate:due,status:'pending',createdAt:new Date().toISOString().slice(0,10)});
   const row=document.getElementById('cr-'+uid); if (row) row.classList.add('done');
-  const btn=document.getElementById('crb-'+uid); if (btn){ btn.textContent='✓ Done'; btn.disabled=true; btn.style.opacity='.5'; }
+  const btn=document.getElementById('crb-'+uid); if (btn){ btn.textContent=t('cr.done_btn'); btn.disabled=true; btn.style.opacity='.5'; }
 }
 
 function genSelected(){
@@ -1245,12 +1413,12 @@ function applyBulk(){
 function toggleAll(v){ document.querySelectorAll('.cr-chk').forEach(c=>c.checked=v); }
 
 function delInvoice(id){
-  if (!confirm('Delete this invoice?')) return;
+  if (!confirm(t('confirm.del_inv'))) return;
   DB.deleteInvoice(id); renderAdmin();
 }
 
 function removeTenant(id){
-  if (!confirm('Remove this tenant? Their invoices will remain.')) return;
+  if (!confirm(t('confirm.rem_tenant'))) return;
   DB.saveUsers(DB.users().filter(u=>u.id!==id)); renderAdmin('tenants');
 }
 
@@ -1344,17 +1512,17 @@ async function sendInvoiceEmail(invId){
         gross_amount:fmt(gross(inv.amount)), due_date:inv.dueDate,
         from_name:cfg.fromName||'Rheinalle 3',
       });
-      openModal('Email Sent',`<p style="color:#3a7a4a;margin-bottom:16px">✓ Sent to <strong>${user.email}</strong></p><div class="email-preview-box">${body}</div>`,'');
+      openModal(t('inv.send_email'),`<p style="color:#3a7a4a;margin-bottom:16px">${t('email.sent_to')} <strong>${user.email}</strong></p><div class="email-preview-box">${body}</div>`,'');
     } catch(e){
-      openModal('Email Failed',`<p style="color:#c0392b;margin-bottom:12px">Could not send: ${e.text||e}</p><p style="font-size:.82rem;color:var(--mid)">Check your EmailJS credentials in Admin → Settings.</p>`,'');
+      openModal(t('inv.send_email'),`<p style="color:#c0392b;margin-bottom:12px">${t('email.failed')} ${e.text||e}</p><p style="font-size:.82rem;color:var(--mid)">${t('email.check_cfg')}</p>`,'');
     }
   } else {
     const sub=encodeURIComponent(`Invoice ${inv.id} – ${inv.period} – Rheinalle 3`);
     const ml=`mailto:${user.email}?subject=${sub}&body=${encodeURIComponent(body)}`;
-    openModal('Send Email to '+user.name,
-      `<p style="font-size:.84rem;color:var(--mid);margin-bottom:16px;line-height:1.7">EmailJS not configured. Click <strong>Open in Mail App</strong> to send via your local mail client, or configure EmailJS in <strong>Admin → Settings</strong>.</p><div class="email-preview-box">${body}</div>`,
-      `<a href="${ml}" target="_blank"><button class="btn-sm btn-sm-dark">Open in Mail App</button></a>
-       <button class="btn-sm btn-sm-outline" onclick="showPage('admin');renderAdmin('settings');closeModal()">Configure Email</button>`);
+    openModal(t('inv.send_email'),
+      `<p style="font-size:.84rem;color:var(--mid);margin-bottom:16px;line-height:1.7">${t('email.not_cfg')}</p><div class="email-preview-box">${body}</div>`,
+      `<a href="${ml}" target="_blank"><button class="btn-sm btn-sm-dark">${t('email.open_mail')}</button></a>
+       <button class="btn-sm btn-sm-outline" onclick="showPage('admin');renderAdmin('settings');closeModal()">${t('email.configure')}</button>`);
   }
 }
 
@@ -1368,9 +1536,9 @@ async function submitApplication(n){
   const err    =document.getElementById('app-err-'+n);
   err.style.display='none';
 
-  if (!name||!email){ err.textContent='Please enter your name and email address.'; err.style.display='block'; return; }
-  if (!movein){ err.textContent='Please select a desired move-in date.'; err.style.display='block'; return; }
-  if (!email.includes('@')){ err.textContent='Please enter a valid email address.'; err.style.display='block'; return; }
+  if (!name||!email){ err.textContent=t('apply.err.name'); err.style.display='block'; return; }
+  if (!movein){ err.textContent=t('apply.err.movein'); err.style.display='block'; return; }
+  if (!email.includes('@')){ err.textContent=t('apply.err.email'); err.style.display='block'; return; }
 
   const room=getRoom(n);
   const cfg=DB.emailCfg();
@@ -1437,31 +1605,31 @@ function previewInvoice(id){
     <div class="inv-doc">
       <div class="inv-head">
         <div><div class="inv-company">Rheinalle 3</div><div class="inv-addr">Rheinallee 3<br>65375 Oestrich-Winkel<br>Germany</div></div>
-        <div style="text-align:right"><div class="inv-num">${inv.id}</div><div class="inv-date">Issued: ${inv.createdAt||'—'}<br>Due: ${inv.dueDate||'—'}</div></div>
+        <div style="text-align:right"><div class="inv-num">${inv.id}</div><div class="inv-date">${t('pr.issued')} ${inv.createdAt||'—'}<br>${t('pr.due')} ${inv.dueDate||'—'}</div></div>
       </div>
       <div class="inv-to-block">
-        <div class="inv-to-label">Bill to</div>
+        <div class="inv-to-label">${t('inv.bill_to')}</div>
         <div class="inv-to-name">${user.name||'Tenant'}</div>
         <div class="inv-to-detail">${user.email||''}</div>
-        <div class="inv-to-detail">${room.name||''} · Rheinallee 3, 65375 Oestrich-Winkel</div>
+        <div class="inv-to-detail">${t('nav.r'+inv.room)||room.name||''} · Rheinallee 3, 65375 Oestrich-Winkel</div>
       </div>
       <table class="inv-lines">
         <thead><tr><th>Description</th><th>Period</th><th>Amount</th></tr></thead>
         <tbody>
-          <tr><td>Monthly Rent — ${room.name||''} (${room.type||''}, ${room.size||''})</td><td>${inv.period}</td><td>€ ${fmt(n)}</td></tr>
-          <tr><td>Utilities &amp; Internet (included)</td><td>${inv.period}</td><td>€ 0.00</td></tr>
+          <tr><td>${t('inv.monthly_rent')} — ${t('nav.r'+inv.room)||room.name||''} (${t('val.'+(room.type==='Single room'?'single_room':'double_room'))||room.type||''}, ${room.size||''})</td><td>${inv.period}</td><td>€ ${fmt(n)}</td></tr>
+          <tr><td>${t('inv.utilities')}</td><td>${inv.period}</td><td>€ 0.00</td></tr>
         </tbody>
       </table>
       <div class="inv-total-wrap">
-        <div class="inv-total-row"><span>Net total</span><span>€ ${fmt(n)}</span></div>
-        <div class="inv-total-row"><span>VAT 19 %</span><span>€ ${fmt(v)}</span></div>
-        <div class="inv-total-row grand"><span>Gross total due</span><span>€ ${fmt(g)}</span></div>
+        <div class="inv-total-row"><span>${t('inv.net_total')}</span><span>€ ${fmt(n)}</span></div>
+        <div class="inv-total-row"><span>${t('inv.vat_line')}</span><span>€ ${fmt(v)}</span></div>
+        <div class="inv-total-row grand"><span>${t('inv.gross_total')}</span><span>€ ${fmt(g)}</span></div>
       </div>
-      <div class="inv-footer-note">Bank transfer to: IBAN DE00 0000 0000 0000 0000 00 · BIC XXXXDEXX<br>Reference: ${inv.id} · ${user.name||''} · Due ${inv.dueDate||'—'}</div>
-      <div class="inv-status-bar status-${inv.status}">${inv.status.toUpperCase()}</div>
+      <div class="inv-footer-note">${t('inv.iban_note')}<br>Ref: ${inv.id} · ${user.name||''} · ${t('pr.due')} ${inv.dueDate||'—'}</div>
+      <div class="inv-status-bar status-${inv.status}">${t('inv.status.'+inv.status)||inv.status.toUpperCase()}</div>
     </div>`,
-    `<button class="btn-sm btn-sm-dark" onclick="printInvoice('${id}')">Save as PDF / Print</button>
-     <button class="btn-sm btn-sm-green" onclick="sendInvoiceEmail('${id}');closeModal()">Send Email</button>`);
+    `<button class="btn-sm btn-sm-dark" onclick="printInvoice('${id}')">${t('inv.save_pdf')}</button>
+     <button class="btn-sm btn-sm-green" onclick="sendInvoiceEmail('${id}');closeModal()">${t('inv.send_email')}</button>`);
 }
 
 function printInvoice(id){
