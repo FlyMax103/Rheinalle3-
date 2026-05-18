@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account · The Rhein Alle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-nav-dark account-page">
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+        <text x="40" y="14" text-anchor="middle" fill="white" font-size="8" font-family="Georgia, serif" letter-spacing="3">RHEIN ALLE</text>
+        <path d="M8 26 Q24 16 40 24 Q56 32 72 20" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M8 32 Q24 22 40 30 Q56 38 72 26" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </a>
+    <ul class="nav-rooms">
+      <li><a href="room1.html">Room 1</a></li>
+      <li><a href="room2.html">Room 2</a></li>
+      <li><a href="room3.html">Room 3</a></li>
+      <li><a href="room4.html">Room 4</a></li>
+      <li><a href="room5.html">Room 5</a></li>
+    </ul>
+    <a href="account.html" class="nav-account active" title="My Account">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </nav>
+
+  <div class="account-hero">
+    <h1>My Account</h1>
+  </div>
+
+  <div class="account-tabs">
+    <div class="account-tab active" data-tab="login">Sign In</div>
+    <div class="account-tab" data-tab="register">Create Account</div>
+    <div class="account-tab" data-tab="invoices">Invoices</div>
+  </div>
+
+  <div class="account-content">
+
+    <!-- Sign In -->
+    <div class="panel active" id="panel-login">
+      <h2>Sign in to your account</h2>
+      <form onsubmit="return false;">
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn-dark" style="width:100%;cursor:pointer;padding:14px;">Sign In</button>
+        <div class="form-divider">or</div>
+        <p style="text-align:center;font-size:0.82rem;color:#777;">
+          No account yet?
+          <button class="form-link" onclick="switchTab('register')">Create one here</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- Create Account -->
+    <div class="panel" id="panel-register">
+      <h2>Create an account</h2>
+      <form onsubmit="return false;">
+        <div class="form-group">
+          <label>First name</label>
+          <input type="text" placeholder="Anna" />
+        </div>
+        <div class="form-group">
+          <label>Last name</label>
+          <input type="text" placeholder="Müller" />
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="Minimum 8 characters" />
+        </div>
+        <div class="form-group">
+          <label>Confirm password</label>
+          <input type="password" placeholder="Repeat password" />
+        </div>
+        <button type="submit" class="btn-dark" style="width:100%;cursor:pointer;padding:14px;">Create Account</button>
+        <div class="form-divider">or</div>
+        <p style="text-align:center;font-size:0.82rem;color:#777;">
+          Already have an account?
+          <button class="form-link" onclick="switchTab('login')">Sign in here</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- Invoices -->
+    <div class="panel" id="panel-invoices">
+      <h2>Your invoices</h2>
+      <div class="invoice-list">
+        <div class="invoice-item">
+          <div class="invoice-meta">
+            <div class="inv-month">May 2026</div>
+            <div class="inv-room">Room 2 · Rhein Alle</div>
+          </div>
+          <div class="invoice-right">
+            <span class="invoice-amount">€ 650.00</span>
+            <span class="badge badge-paid">Paid</span>
+            <span class="invoice-dl">Download</span>
+          </div>
+        </div>
+        <div class="invoice-item">
+          <div class="invoice-meta">
+            <div class="inv-month">April 2026</div>
+            <div class="inv-room">Room 2 · Rhein Alle</div>
+          </div>
+          <div class="invoice-right">
+            <span class="invoice-amount">€ 650.00</span>
+            <span class="badge badge-paid">Paid</span>
+            <span class="invoice-dl">Download</span>
+          </div>
+        </div>
+        <div class="invoice-item">
+          <div class="invoice-meta">
+            <div class="inv-month">June 2026</div>
+            <div class="inv-room">Room 2 · Rhein Alle</div>
+          </div>
+          <div class="invoice-right">
+            <span class="invoice-amount">€ 650.00</span>
+            <span class="badge badge-pending">Pending</span>
+            <span class="invoice-dl">Download</span>
+          </div>
+        </div>
+      </div>
+      <div class="account-note">
+        Sign in to view your complete invoice history and download PDF copies.
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 The Rhein Alle · Düsseldorf</p>
+  </footer>
+
+  <script>
+    function switchTab(name) {
+      document.querySelectorAll('.account-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelector(`[data-tab="${name}"]`).classList.add('active');
+      document.getElementById(`panel-${name}`).classList.add('active');
+    }
+
+    document.querySelectorAll('.account-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+  </script>
+
+</body>
+</html>
